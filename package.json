@@ -1,7 +1,7 @@
 {
-  "name": "shortcut-branch-commit-msg-hook",
+  "name": "git-branch-commit-msg-hook",
   "version": "1.0.0",
-  "description": "A git commit-msg hook that automatically prepends the Shortcut ticket number from the branch name.",
+  "description": "A git commit-msg hook that automatically inserts a matched pattern from the active branch name to the commit message.",
   "main": "dist/index.js",
   "repository": "TODO",
   "author": "Brandon Rajkowski <github@brajkowski.bulc.club>",

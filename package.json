@@ -23,7 +23,8 @@
     "typescript": "^4.7.3"
   },
   "scripts": {
-    "test": "jest",
+    "test:unit": "jest --testPathPattern=test/unit",
+    "test:integration": "ts-node test/integration/index.ts",
     "prepare": "husky install"
   }
 }

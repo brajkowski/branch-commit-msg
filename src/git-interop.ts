@@ -24,6 +24,6 @@ export function activeBranchName(git = gitCmd): string {
       `Received unexpected output: ${result.output}`
     );
   }
-  const branch = result.output[1].trim();
-  return branch;
+  const branchName = result.output[1].trim();
+  return branchName;
 }

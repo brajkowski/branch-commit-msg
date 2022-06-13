@@ -1,12 +1,9 @@
 import { SpawnSyncReturns } from "child_process";
 import {
   activeBranchName,
-  ActiveBranchNameExtractionError,
-  ActiveBranchNotFoundError,
-  CommitMessageExtractionError,
-  CommitMessageNotFoundError,
   GitError,
   latestCommitMessage,
+  ResultExtractionError,
 } from "../../src/git-interop";
 
 function createMockSpawnSyncReturns(
@@ -43,17 +40,9 @@ describe("git-interop", () => {
     });
   });
 
-  describe("ActiveBranchNotFoundError", () => {
-    it("should be an instance of a GitError", () => {
-      expect(new ActiveBranchNotFoundError(null) instanceof GitError).toBe(
-        true
-      );
-    });
-  });
-
-  describe("ActiveBranchNameExtractionError", () => {
-    it("should be an instance of an Error", () => {
-      expect(new ActiveBranchNameExtractionError() instanceof Error).toBe(true);
+  describe("ResultExtractionError", () => {
+    it("should be an instance of a Error", () => {
+      expect(new ResultExtractionError() instanceof Error).toBe(true);
     });
   });
 
@@ -61,7 +50,7 @@ describe("git-interop", () => {
     it("should throw an error if the git command does not succeed", () => {
       expect(() =>
         activeBranchName(() => createMockSpawnSyncReturns(1))
-      ).toThrow(ActiveBranchNotFoundError);
+      ).toThrow(GitError);
     });
 
     it("should return the branch name when the git command succeeds with expected output format", () => {
@@ -79,7 +68,7 @@ describe("git-interop", () => {
       (output) => {
         expect(() =>
           activeBranchName(() => createMockSpawnSyncReturns(0, output))
-        ).toThrow(ActiveBranchNameExtractionError);
+        ).toThrow(ResultExtractionError);
       }
     );
   });
@@ -88,7 +77,7 @@ describe("git-interop", () => {
     it("should throw an error if the git command does not succeed", () => {
       expect(() =>
         latestCommitMessage(() => createMockSpawnSyncReturns(1))
-      ).toThrow(CommitMessageNotFoundError);
+      ).toThrow(GitError);
     });
 
     it("should return the latest commit message when the git command succeeds with expected output format", () => {
@@ -110,7 +99,7 @@ describe("git-interop", () => {
       (output) => {
         expect(() =>
           latestCommitMessage(() => createMockSpawnSyncReturns(0, output))
-        ).toThrow(CommitMessageExtractionError);
+        ).toThrow(ResultExtractionError);
       }
     );
   });

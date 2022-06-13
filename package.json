@@ -27,7 +27,7 @@
     "build": "rimraf dist && tsc",
     "test": "yarn test:unit && yarn test:integration",
     "test:unit": "jest --testPathPattern=test/unit",
-    "test:integration": "ts-node test/integration/index.ts",
+    "test:integration": "yarn build && ts-node test/integration/index.ts",
     "prepare": "husky install"
   }
 }

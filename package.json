@@ -18,11 +18,13 @@
     "jest": "^28.1.1",
     "lint-staged": "^13.0.1",
     "prettier": "2.6.2",
+    "rimraf": "^3.0.2",
     "ts-jest": "^28.0.4",
     "ts-node": "^10.8.1",
     "typescript": "^4.7.3"
   },
   "scripts": {
+    "build": "rimraf dist && tsc",
     "test": "yarn test:unit && yarn test:integration",
     "test:unit": "jest --testPathPattern=test/unit",
     "test:integration": "ts-node test/integration/index.ts",

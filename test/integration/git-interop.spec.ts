@@ -1,9 +1,8 @@
 import { spawnSync } from "child_process";
 import {
   activeBranchName,
-  ActiveBranchNotFoundError,
-  CommitMessageNotFoundError,
   gitCmd,
+  GitError,
   latestCommitMessage,
 } from "../../src/git-interop";
 
@@ -14,12 +13,12 @@ describe("git-interop", () => {
 
   describe("activeBranchName()", () => {
     it("should throw an error when there is no git repo", () => {
-      expect(() => activeBranchName()).toThrow(ActiveBranchNotFoundError);
+      expect(() => activeBranchName()).toThrow(GitError);
     });
 
     it("should throw an error when there is no active branch", () => {
       gitCmd(["init", "--quiet"]);
-      expect(() => activeBranchName()).toThrow(ActiveBranchNotFoundError);
+      expect(() => activeBranchName()).toThrow(GitError);
     });
 
     it("should return the active branch name when there is an active branch", () => {
@@ -35,12 +34,12 @@ describe("git-interop", () => {
 
   describe("latestCommitMessage()", () => {
     it("should throw an error when there is no git repo", () => {
-      expect(() => latestCommitMessage()).toThrow(CommitMessageNotFoundError);
+      expect(() => latestCommitMessage()).toThrow(GitError);
     });
 
     it("should throw an error when there are no commits to the repo", () => {
       gitCmd(["init", "--quiet"]);
-      expect(() => latestCommitMessage()).toThrow(CommitMessageNotFoundError);
+      expect(() => latestCommitMessage()).toThrow(GitError);
     });
 
     it("should return the latest commit message when there are commits to the repo", () => {

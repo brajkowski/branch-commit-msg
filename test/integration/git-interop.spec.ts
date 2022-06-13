@@ -16,9 +16,11 @@ describe("git-interop", () => {
       expect(() => activeBranchName()).toThrow(GitError);
     });
 
-    it("should throw an error when there is no active branch", () => {
+    it("should return the active branch name on repos that don't have any commits", () => {
+      const expectedBranchName = "main";
       gitCmd(["init", "--quiet"]);
-      expect(() => activeBranchName()).toThrow(GitError);
+      gitCmd(["checkout", "-b", expectedBranchName]);
+      expect(activeBranchName()).toEqual(expectedBranchName);
     });
 
     it("should return the active branch name when there is an active branch", () => {

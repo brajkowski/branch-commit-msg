@@ -25,7 +25,7 @@ function extractOutput(result: SpawnSyncReturns<string>): string {
 }
 
 export function activeBranchName(git = gitCmd): string {
-  const result = git(["rev-parse", "--abbrev-ref", "HEAD"]);
+  const result = git(["symbolic-ref", "--short", "HEAD"]);
   return extractOutput(result);
 }
 

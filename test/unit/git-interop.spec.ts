@@ -3,8 +3,25 @@ import {
   activeBranchName,
   ActiveBranchNameExtractionError,
   ActiveBranchNotFoundError,
+  CommitMessageExtractionError,
+  CommitMessageNotFoundError,
   GitError,
+  latestCommitMessage,
 } from "../../src/git-interop";
+
+function createMockSpawnSyncReturns(
+  status: number,
+  output: (string | null)[] = []
+): SpawnSyncReturns<string> {
+  return {
+    status,
+    output,
+    pid: 0,
+    stdout: "",
+    stderr: "",
+    signal: null,
+  };
+}
 
 describe("git-interop", () => {
   describe("GitError", () => {
@@ -41,20 +58,6 @@ describe("git-interop", () => {
   });
 
   describe("activeBranchName()", () => {
-    function createMockSpawnSyncReturns(
-      status: number,
-      output: (string | null)[] = []
-    ): SpawnSyncReturns<string> {
-      return {
-        status,
-        output,
-        pid: 0,
-        stdout: "",
-        stderr: "",
-        signal: null,
-      };
-    }
-
     it("should throw an error if the git command does not succeed", () => {
       expect(() =>
         activeBranchName(() => createMockSpawnSyncReturns(1))
@@ -77,6 +80,37 @@ describe("git-interop", () => {
         expect(() =>
           activeBranchName(() => createMockSpawnSyncReturns(0, output))
         ).toThrow(ActiveBranchNameExtractionError);
+      }
+    );
+  });
+
+  describe("latestCommitMessage()", () => {
+    it("should throw an error if the git command does not succeed", () => {
+      expect(() =>
+        latestCommitMessage(() => createMockSpawnSyncReturns(1))
+      ).toThrow(CommitMessageNotFoundError);
+    });
+
+    it("should return the latest commit message when the git command succeeds with expected output format", () => {
+      const expectedCommitMessage = "some commit message";
+      expect(
+        latestCommitMessage(() =>
+          createMockSpawnSyncReturns(0, [
+            null,
+            `${expectedCommitMessage}\n`,
+            null,
+          ])
+        )
+      ).toEqual(expectedCommitMessage);
+    });
+
+    const unexpectedOutputCases = [[[]], [[null, null]]];
+    test.each(unexpectedOutputCases)(
+      "should throw an error if the git command succeeds with an unexpected output format of %p",
+      (output) => {
+        expect(() =>
+          latestCommitMessage(() => createMockSpawnSyncReturns(0, output))
+        ).toThrow(CommitMessageExtractionError);
       }
     );
   });

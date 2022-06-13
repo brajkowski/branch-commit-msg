@@ -2,15 +2,17 @@ import { spawnSync } from "child_process";
 import {
   activeBranchName,
   ActiveBranchNotFoundError,
+  CommitMessageNotFoundError,
   gitCmd,
+  latestCommitMessage,
 } from "../../src/git-interop";
 
 describe("git-interop", () => {
-  describe("activeBranchName()", () => {
-    afterEach(() => {
-      spawnSync("rm", ["-rf", ".git"]); // Remove git repo for testing isolation.
-    });
+  afterEach(() => {
+    spawnSync("rm", ["-rf", ".git"]); // Remove git repo for testing isolation.
+  });
 
+  describe("activeBranchName()", () => {
     it("should throw an error when there is no git repo", () => {
       expect(() => activeBranchName()).toThrow(ActiveBranchNotFoundError);
     });
@@ -28,6 +30,27 @@ describe("git-interop", () => {
       gitCmd(["checkout", "-b", expectedBranchName]);
       gitCmd(["commit", "--allow-empty", "-m", "empty-commit"]);
       expect(activeBranchName()).toEqual(expectedBranchName);
+    });
+  });
+
+  describe("latestCommitMessage()", () => {
+    it("should throw an error when there is no git repo", () => {
+      expect(() => latestCommitMessage()).toThrow(CommitMessageNotFoundError);
+    });
+
+    it("should throw an error when there are no commits to the repo", () => {
+      gitCmd(["init", "--quiet"]);
+      expect(() => latestCommitMessage()).toThrow(CommitMessageNotFoundError);
+    });
+
+    it("should return the latest commit message when there are commits to the repo", () => {
+      const expectedCommitMessage = "some commit message";
+      gitCmd(["init", "--quiet"]);
+      gitCmd(["config", "user.email", "test@test.com"]);
+      gitCmd(["config", "user.name", "test"]);
+      gitCmd(["commit", "--allow-empty", "-m", "first commit"]);
+      gitCmd(["commit", "--allow-empty", "-m", expectedCommitMessage]);
+      expect(latestCommitMessage()).toEqual(expectedCommitMessage);
     });
   });
 });

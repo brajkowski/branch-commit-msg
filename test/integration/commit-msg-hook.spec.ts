@@ -38,6 +38,16 @@ describe("commit-msg-hook", () => {
     {
       branch: "branch",
       originalMessage: "message",
+      expectedMessage: "message",
+      config: {
+        extractPattern: "no-match",
+        extractPatternMatchCase: true,
+        commitMsgFormat: "%b0: %m",
+      },
+    },
+    {
+      branch: "branch",
+      originalMessage: "message",
       expectedMessage: "branch: MESSAGE",
       config: {
         extractPattern: ".*",

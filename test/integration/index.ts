@@ -16,6 +16,7 @@ const result = spawnSync(
     ${shareWithContainer("tsconfig.json")} \
     ${shareWithContainer("src")} \
     ${shareWithContainer("test")} \
+    ${shareWithContainer("dist")} \
     --workdir ${containerWd} \
     node:16 \
     yarn jest --testPathPattern=test/integration -i`, // -i: Run tests sequentially.

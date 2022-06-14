@@ -29,7 +29,7 @@ try {
   });
   newMessage = newMessage
     .replace("%m | upper", currentMsg.toUpperCase())
-    .replace("%m | lower", currentMsg.toUpperCase())
+    .replace("%m | lower", currentMsg.toLowerCase())
     .replace("%m", currentMsg);
   writeFileSync(commitMsgFile, newMessage);
 } catch (error) {

@@ -38,21 +38,21 @@ describe("commit-msg-hook", () => {
     {
       branch: "branch",
       originalMessage: "message",
-      expectedMessage: "branch: message",
+      expectedMessage: "branch: MESSAGE",
       config: {
         extractPattern: ".*",
         extractPatternMatchCase: true,
-        commitMsgFormat: "%b0: %m",
+        commitMsgFormat: "%b0: %m | upper",
       },
     },
     {
       branch: "some/complex-123-5/branch",
-      originalMessage: "added a feature",
+      originalMessage: "ADDED A FEATURE",
       expectedMessage: "added a feature (ref: complex-123-5)",
       config: {
         extractPattern: "complex[0-9-]+",
         extractPatternMatchCase: true,
-        commitMsgFormat: "%m (ref: %b0)",
+        commitMsgFormat: "%m | lower (ref: %b0)",
       },
     },
     {

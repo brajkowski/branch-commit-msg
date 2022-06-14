@@ -86,13 +86,13 @@ describe("commit-msg-hook", () => {
       },
     },
     {
-      branch: "some/CoMpLEX-123-5/branch",
+      branch: "some/CoMpLEX-123-5/BRANCH",
       originalMessage: "added a feature",
-      expectedMessage: "SOME complex-123-5 BRANCH",
+      expectedMessage: "SOME CoMpLEX-123-5 branch",
       config: {
         extractPattern: "(some).*(complex[0-9-]+).*(branch)",
         extractPatternMatchCase: false,
-        commitMsgFormat: "%m | upper (ref: %b0 | lower)",
+        commitMsgFormat: "%b1 | upper %b2 %b3 | lower",
       },
     },
   ];

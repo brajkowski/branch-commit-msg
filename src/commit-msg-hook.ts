@@ -20,12 +20,14 @@ try {
   if (!branchDetail) {
     exit();
   }
-  console.log("length", branchDetail.length);
-  console.log("arr", branchDetail);
-  const newMessage = config.commitMsgFormat
-    .replace("%b0 | upper", branchDetail![0].toUpperCase())
-    .replace("%b0 | lower", branchDetail![0].toLowerCase())
-    .replace("%b0", branchDetail![0])
+  let newMessage = config.commitMsgFormat;
+  branchDetail.forEach((b, index) => {
+    newMessage = newMessage
+      .replace(`%b${index} | upper`, b.toUpperCase())
+      .replace(`%b${index} | lower`, b.toLowerCase())
+      .replace(`%b${index}`, b);
+  });
+  newMessage = newMessage
     .replace("%m | upper", currentMsg.toUpperCase())
     .replace("%m | lower", currentMsg.toUpperCase())
     .replace("%m", currentMsg);

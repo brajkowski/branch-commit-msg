@@ -2,7 +2,6 @@ import { SpawnSyncReturns } from "child_process";
 import {
   activeBranchName,
   GitError,
-  latestCommitMessage,
   ResultExtractionError,
 } from "../../src/git-interop";
 
@@ -68,37 +67,6 @@ describe("git-interop", () => {
       (output) => {
         expect(() =>
           activeBranchName(() => createMockSpawnSyncReturns(0, output))
-        ).toThrow(ResultExtractionError);
-      }
-    );
-  });
-
-  describe("latestCommitMessage()", () => {
-    it("should throw an error if the git command does not succeed", () => {
-      expect(() =>
-        latestCommitMessage(() => createMockSpawnSyncReturns(1))
-      ).toThrow(GitError);
-    });
-
-    it("should return the latest commit message when the git command succeeds with expected output format", () => {
-      const expectedCommitMessage = "some commit message";
-      expect(
-        latestCommitMessage(() =>
-          createMockSpawnSyncReturns(0, [
-            null,
-            `${expectedCommitMessage}\n`,
-            null,
-          ])
-        )
-      ).toEqual(expectedCommitMessage);
-    });
-
-    const unexpectedOutputCases = [[[]], [[null, null]]];
-    test.each(unexpectedOutputCases)(
-      "should throw an error if the git command succeeds with an unexpected output format of %p",
-      (output) => {
-        expect(() =>
-          latestCommitMessage(() => createMockSpawnSyncReturns(0, output))
         ).toThrow(ResultExtractionError);
       }
     );

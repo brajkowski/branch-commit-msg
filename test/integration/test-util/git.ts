@@ -1,5 +1,5 @@
 import { spawnSync } from "child_process";
-import { gitCmd } from "../../../src/git-interop";
+import { extractGitCmdOutput, gitCmd } from "../../../src/git-interop";
 
 export function createRepo(): void {
   gitCmd(["init", "--quiet"]);
@@ -17,4 +17,9 @@ export function checkoutBranch(branchName: string): void {
 
 export function commit(message: string): void {
   gitCmd(["commit", "--allow-empty", "-m", message]);
+}
+
+export function latestCommitMessage(git = gitCmd): string {
+  const result = git(["log", "-1", "--pretty=%B"]);
+  return extractGitCmdOutput(result);
 }

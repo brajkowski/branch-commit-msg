@@ -1,11 +1,11 @@
 import { Config } from "../../src/config";
-import { latestCommitMessage } from "../../src/git-interop";
 import { createRcFile, deleteRcFile } from "./test-util/config";
 import {
   checkoutBranch,
   commit,
   createRepo,
   deleteRepo,
+  latestCommitMessage,
 } from "./test-util/git";
 import { installHook } from "./test-util/install";
 

@@ -12,7 +12,7 @@ export function gitCmd(args: string[]): SpawnSyncReturns<string> {
   return spawnSync("git", args, { stdio: "pipe", encoding: "utf-8" });
 }
 
-function extractOutput(result: SpawnSyncReturns<string>): string {
+export function extractGitCmdOutput(result: SpawnSyncReturns<string>): string {
   if (result.status !== 0) {
     throw new GitError(result.status);
   }
@@ -26,10 +26,5 @@ function extractOutput(result: SpawnSyncReturns<string>): string {
 
 export function activeBranchName(git = gitCmd): string {
   const result = git(["symbolic-ref", "--short", "HEAD"]);
-  return extractOutput(result);
-}
-
-export function latestCommitMessage(git = gitCmd): string {
-  const result = git(["log", "-1", "--pretty=%B"]);
-  return extractOutput(result);
+  return extractGitCmdOutput(result);
 }

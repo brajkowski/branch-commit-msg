@@ -3,37 +3,45 @@ import { readFileSync, writeFileSync } from "fs";
 import { exit } from "process";
 import { getConfig } from "./config";
 import { activeBranchName, GitError } from "./git-interop";
-const commitMsgFile = process.argv[process.argv.length - 1];
-const currentMsg = readFileSync(commitMsgFile).toString().trimEnd();
-const config = getConfig();
-if (config === undefined) {
+
+let branchName: string;
+const commitMsgFilePath = process.argv[process.argv.length - 1];
+const currentCommitMsg = readFileSync(commitMsgFilePath).toString().trimEnd();
+const hookConfig = getConfig();
+
+if (hookConfig === undefined) {
   exit();
 }
+
 try {
-  const branch = activeBranchName();
-  const branchDetail = branch.match(
-    new RegExp(
-      config.extractPattern,
-      config.extractPatternMatchCase ? undefined : "i"
-    )
-  );
-  if (!branchDetail) {
-    exit();
-  }
-  let newMessage = config.commitMsgFormat;
-  branchDetail.forEach((b, index) => {
-    newMessage = newMessage
-      .replace(`%b${index} | upper`, b.toUpperCase())
-      .replace(`%b${index} | lower`, b.toLowerCase())
-      .replace(`%b${index}`, b);
-  });
-  newMessage = newMessage
-    .replace("%m | upper", currentMsg.toUpperCase())
-    .replace("%m | lower", currentMsg.toLowerCase())
-    .replace("%m", currentMsg);
-  writeFileSync(commitMsgFile, newMessage);
+  branchName = activeBranchName();
 } catch (error) {
   if (!(error instanceof GitError)) {
     throw error;
   }
 }
+
+const branchMatches = branchName!.match(
+  new RegExp(
+    hookConfig.extractPattern,
+    hookConfig.extractPatternMatchCase ? undefined : "i"
+  )
+);
+
+if (!branchMatches) {
+  exit();
+}
+
+let newCommitMsg = hookConfig.commitMsgFormat;
+branchMatches.forEach((b, index) => {
+  newCommitMsg = newCommitMsg
+    .replace(`%b${index} | upper`, b.toUpperCase())
+    .replace(`%b${index} | lower`, b.toLowerCase())
+    .replace(`%b${index}`, b);
+});
+newCommitMsg = newCommitMsg
+  .replace("%m | upper", currentCommitMsg.toUpperCase())
+  .replace("%m | lower", currentCommitMsg.toLowerCase())
+  .replace("%m", currentCommitMsg);
+
+writeFileSync(commitMsgFilePath, newCommitMsg);

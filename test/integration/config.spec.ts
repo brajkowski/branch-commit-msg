@@ -1,11 +1,11 @@
 import { spawnSync } from "child_process";
 import { writeFileSync } from "fs";
-import { Config, getConfig, rcFile } from "../../src/config";
+import { Config, getConfig, RC_FILE_NAME } from "../../src/config";
 
 describe("config", () => {
   describe("getConfig()", () => {
     beforeEach(() => {
-      spawnSync("rm", ["-rf", rcFile]);
+      spawnSync("rm", ["-rf", RC_FILE_NAME]);
     });
 
     it("should return undefined when there is no rc file", () => {
@@ -13,7 +13,7 @@ describe("config", () => {
     });
 
     it("should return undefined if the rc file is malformed", () => {
-      writeFileSync(rcFile, "{");
+      writeFileSync(RC_FILE_NAME, "{");
       expect(getConfig()).toBeUndefined();
     });
 
@@ -32,7 +32,7 @@ describe("config", () => {
         const partialConfig: Partial<Config> = {
           extractPattern: ".*",
         };
-        writeFileSync(rcFile, JSON.stringify(partialConfig));
+        writeFileSync(RC_FILE_NAME, JSON.stringify(partialConfig));
         expect(getConfig()).toBeUndefined();
       }
     );
@@ -43,7 +43,7 @@ describe("config", () => {
         extractPatternMatchCase: false,
         commitMsgFormat: "%b %m",
       };
-      writeFileSync(rcFile, JSON.stringify(expectedConfig));
+      writeFileSync(RC_FILE_NAME, JSON.stringify(expectedConfig));
       expect(getConfig()).toStrictEqual(expectedConfig);
     });
   });

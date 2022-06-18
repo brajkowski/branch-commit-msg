@@ -1,23 +1,22 @@
 import { Config } from "../../src/config";
 import { latestCommitMessage } from "../../src/git-interop";
+import { createRcFile, deleteRcFile } from "./test-util/config";
 import {
   checkoutBranch,
   commit,
-  createGitRepo,
-  createRcFile,
-  deleteGitRepo,
-  deleteRcFile,
-  installHook,
-} from "./util";
+  createRepo,
+  deleteRepo,
+} from "./test-util/git";
+import { installHook } from "./test-util/install";
 
 describe("commit-msg-hook", () => {
   beforeEach(() => {
-    createGitRepo();
+    createRepo();
     installHook();
   });
 
   afterEach(() => {
-    deleteGitRepo();
+    deleteRepo();
     deleteRcFile();
   });
 

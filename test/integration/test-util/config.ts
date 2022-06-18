@@ -3,7 +3,11 @@ import { writeFileSync } from "fs";
 import { Config, RC_FILE_NAME } from "../../../src/config";
 
 export function createRcFile(config: Config): void {
-  writeFileSync(RC_FILE_NAME, JSON.stringify(config));
+  createRcFileRaw(JSON.stringify(config));
+}
+
+export function createRcFileRaw(raw: string): void {
+  writeFileSync(RC_FILE_NAME, raw);
 }
 
 export function deleteRcFile(): void {

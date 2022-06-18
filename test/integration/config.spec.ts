@@ -1,6 +1,9 @@
-import { writeFileSync } from "fs";
-import { Config, getConfig, RC_FILE_NAME } from "../../src/config";
-import { deleteRcFile } from "./test-util/config";
+import { Config, getConfig } from "../../src/config";
+import {
+  createRcFile,
+  createRcFileRaw,
+  deleteRcFile,
+} from "./test-util/config";
 
 describe("config", () => {
   describe("getConfig()", () => {
@@ -13,7 +16,7 @@ describe("config", () => {
     });
 
     it("should return undefined if the rc file is malformed", () => {
-      writeFileSync(RC_FILE_NAME, "{");
+      createRcFileRaw("{");
       expect(getConfig()).toBeUndefined();
     });
 
@@ -32,7 +35,7 @@ describe("config", () => {
         const partialConfig: Partial<Config> = {
           extractPattern: ".*",
         };
-        writeFileSync(RC_FILE_NAME, JSON.stringify(partialConfig));
+        createRcFileRaw(JSON.stringify(partialConfig));
         expect(getConfig()).toBeUndefined();
       }
     );
@@ -43,7 +46,7 @@ describe("config", () => {
         extractPatternMatchCase: false,
         commitMsgFormat: "%b %m",
       };
-      writeFileSync(RC_FILE_NAME, JSON.stringify(expectedConfig));
+      createRcFile(expectedConfig);
       expect(getConfig()).toStrictEqual(expectedConfig);
     });
   });

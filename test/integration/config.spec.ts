@@ -1,11 +1,11 @@
-import { spawnSync } from "child_process";
 import { writeFileSync } from "fs";
 import { Config, getConfig, RC_FILE_NAME } from "../../src/config";
+import { deleteRcFile } from "./test-util/config";
 
 describe("config", () => {
   describe("getConfig()", () => {
     beforeEach(() => {
-      spawnSync("rm", ["-rf", RC_FILE_NAME]);
+      deleteRcFile();
     });
 
     it("should return undefined when there is no rc file", () => {

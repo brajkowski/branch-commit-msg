@@ -11,6 +11,5 @@ containerizedTest(
     "tsconfig.json",
     "src",
     "test",
-    "dist",
   ]
 );

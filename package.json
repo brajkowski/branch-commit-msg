@@ -27,7 +27,7 @@
   "scripts": {
     "build": "rimraf dist && yarn bundle:hook",
     "bundle:hook": "esbuild src/commit-msg-hook.ts --bundle --minify --platform=node --outfile=dist/commit-msg",
-    "test": "yarn test:unit && yarn test:integration",
+    "test": "yarn test:unit && yarn test:integration && yarn test:e2e",
     "test:unit": "jest --testPathPattern=test/unit",
     "test:integration": "ts-node test/integration/index.ts",
     "test:e2e": "yarn build && ts-node test/e2e/index.ts",

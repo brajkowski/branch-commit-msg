@@ -1,9 +1,10 @@
 import { spawnSync } from "child_process";
 
-const hostCwd = process.cwd();
-const containerWd = "/app";
-
-function shareWithContainer(hostCwdFile: string): string {
+function shareWithContainer(
+  hostCwd: string,
+  hostCwdFile: string,
+  containerWd: string
+): string {
   return `-v ${hostCwd}/${hostCwdFile}:${containerWd}/${hostCwdFile}`;
 }
 
@@ -12,7 +13,11 @@ export default function containerizedTest(
   dockerImage: string,
   sharedHostFiles: string[] = []
 ): never {
-  const sharedFiles = sharedHostFiles.map(shareWithContainer).join(" ");
+  const hostCwd = process.cwd();
+  const containerWd = "/app";
+  const sharedFiles = sharedHostFiles
+    .map((file) => shareWithContainer(hostCwd, file, containerWd))
+    .join(" ");
   const dockerCmd = `docker run ${sharedFiles} --workdir ${containerWd} ${dockerImage} ${testCmd}`;
   const result = spawnSync(dockerCmd, { stdio: "inherit", shell: true }).status;
 

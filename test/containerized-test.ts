@@ -11,10 +11,13 @@ export default function containerizedTest(
   testCmd: string,
   dockerImage: string,
   sharedHostFiles: string[] = []
-): void {
+): never {
   const sharedFiles = sharedHostFiles.map(shareWithContainer).join(" ");
   const dockerCmd = `docker run ${sharedFiles} --workdir ${containerWd} ${dockerImage} ${testCmd}`;
   const result = spawnSync(dockerCmd, { stdio: "inherit", shell: true }).status;
 
-  result === null ? process.exit(-1) : process.exit(result);
+  if (result === null) {
+    process.exit(-1);
+  }
+  process.exit(result);
 }

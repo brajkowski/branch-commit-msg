@@ -30,6 +30,7 @@
     "test": "yarn test:unit && yarn test:integration",
     "test:unit": "jest --testPathPattern=test/unit",
     "test:integration": "yarn build && ts-node test/integration/index.ts",
+    "test:e2e": "yarn build && ts-node test/e2e/index.ts",
     "prepare": "husky install"
   }
 }

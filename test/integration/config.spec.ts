@@ -3,7 +3,7 @@ import {
   createRcFile,
   createRcFileRaw,
   deleteRcFile,
-} from "./test-util/config";
+} from "../test-util/config";
 
 describe("config", () => {
   describe("getConfig()", () => {

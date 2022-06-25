@@ -1,13 +1,13 @@
 import { Config } from "../../src/config";
-import { createRcFile, deleteRcFile } from "../integration/test-util/config";
+import { createRcFile, deleteRcFile } from "../test-util/config";
 import {
   checkoutBranch,
   commit,
   createRepo,
   deleteRepo,
   latestCommitMessage,
-} from "../integration/test-util/git";
-import { installHook } from "./test-util/install";
+} from "../test-util/git";
+import { installHook } from "../test-util/install";
 
 describe("commit-msg-hook", () => {
   beforeEach(() => {

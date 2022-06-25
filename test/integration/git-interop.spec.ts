@@ -4,7 +4,7 @@ import {
   commit,
   createRepo,
   deleteRepo,
-} from "./test-util/git";
+} from "../test-util/git";
 
 describe("git-interop", () => {
   afterEach(() => {

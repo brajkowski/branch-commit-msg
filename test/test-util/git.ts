@@ -1,5 +1,5 @@
 import { spawnSync } from "child_process";
-import { extractGitCmdOutput, gitCmd } from "../../../src/git-interop";
+import { extractGitCmdOutput, gitCmd } from "../../src/git-interop";
 
 export function createRepo(): void {
   gitCmd(["init", "--quiet"]);

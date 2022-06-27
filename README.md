@@ -1,1 +1,1 @@
-# shortcut-branch-commit-msg
+# branch-commit-msg

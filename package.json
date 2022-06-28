@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "A git commit-msg hook that automatically inserts a matched pattern from the active branch name to the commit message.",
   "main": "dist/index.js",
-  "repository": "TODO",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brajkowski/branch-commit-msg.git"
+  },
   "author": "Brandon Rajkowski <github@brajkowski.bulc.club>",
   "license": "MIT",
   "private": true,

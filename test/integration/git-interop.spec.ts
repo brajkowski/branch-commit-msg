@@ -1,4 +1,4 @@
-import { activeBranchName, GitError } from "../../src/git-interop";
+import { activeBranchName, GitError, repoRootDir } from "../../src/git-interop";
 import {
   checkoutBranch,
   commit,
@@ -29,6 +29,17 @@ describe("git-interop", () => {
       checkoutBranch(expectedBranchName);
       commit("empty-commit");
       expect(activeBranchName()).toEqual(expectedBranchName);
+    });
+  });
+
+  describe("repoRootDir()", () => {
+    it("should throw an error when there is no git repo", () => {
+      expect(() => repoRootDir()).toThrow(GitError);
+    });
+
+    it("should return the repo root directory", () => {
+      createRepo();
+      expect(repoRootDir()).toEqual("/app");
     });
   });
 });

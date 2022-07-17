@@ -28,3 +28,8 @@ export function activeBranchName(git = gitCmd): string {
   const result = git(["symbolic-ref", "--short", "HEAD"]);
   return extractGitCmdOutput(result);
 }
+
+export function repoRootDir(git = gitCmd): string {
+  const result = git(["rev-parse", "--show-toplevel"]);
+  return extractGitCmdOutput(result);
+}

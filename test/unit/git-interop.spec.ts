@@ -2,6 +2,7 @@ import { SpawnSyncReturns } from "child_process";
 import {
   activeBranchName,
   GitError,
+  repoRootDir,
   ResultExtractionError,
 } from "../../src/git-interop";
 
@@ -67,6 +68,37 @@ describe("git-interop", () => {
       (output) => {
         expect(() =>
           activeBranchName(() => createMockSpawnSyncReturns(0, output))
+        ).toThrow(ResultExtractionError);
+      }
+    );
+  });
+
+  describe("repoRootDir()", () => {
+    it("should throw an error if the git command does not succeed", () => {
+      expect(() => repoRootDir(() => createMockSpawnSyncReturns(1))).toThrow(
+        GitError
+      );
+    });
+
+    it("should return the repo root directory when the git command succeeds with expected output format", () => {
+      const expectedRepoRootDir = "some/repo/";
+      expect(
+        repoRootDir(() =>
+          createMockSpawnSyncReturns(0, [
+            null,
+            `${expectedRepoRootDir}\n`,
+            null,
+          ])
+        )
+      ).toEqual(expectedRepoRootDir);
+    });
+
+    const unexpectedOutputCases = [[[]], [[null, null]]];
+    test.each(unexpectedOutputCases)(
+      "should throw an error if the git command succeeds with an unexpected output format of %p",
+      (output) => {
+        expect(() =>
+          repoRootDir(() => createMockSpawnSyncReturns(0, output))
         ).toThrow(ResultExtractionError);
       }
     );

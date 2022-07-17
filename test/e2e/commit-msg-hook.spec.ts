@@ -7,7 +7,7 @@ import {
   deleteRepo,
   latestCommitMessage,
 } from "../test-util/git";
-import { installHook } from "../test-util/install";
+import { installHook } from "./install";
 
 describe("commit-msg-hook", () => {
   beforeEach(() => {

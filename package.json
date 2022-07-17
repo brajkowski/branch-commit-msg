@@ -10,6 +10,7 @@
   "devDependencies": {
     "@types/jest": "^28.1.1",
     "@types/node": "^17.0.42",
+    "@types/yargs": "^17.0.10",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.27.1",
     "esbuild": "^0.14.47",
@@ -25,12 +26,16 @@
     "typescript": "^4.7.3"
   },
   "scripts": {
-    "build": "rimraf dist && yarn bundle:hook",
+    "build": "rimraf dist && yarn bundle:hook && yarn bundle:index",
     "bundle:hook": "esbuild src/commit-msg-hook.ts --bundle --minify --platform=node --outfile=dist/commit-msg",
+    "bundle:index": "esbuild src/index.ts --bundle --minify --platform=node --outfile=dist/index.js",
     "test": "yarn test:unit && yarn test:integration && yarn test:e2e",
     "test:unit": "jest --testPathPattern=test/unit",
     "test:integration": "ts-node test/integration/index.ts",
     "test:e2e": "yarn build && ts-node test/e2e/index.ts",
     "prepare": "husky install"
+  },
+  "dependencies": {
+    "yargs": "^17.5.1"
   }
 }

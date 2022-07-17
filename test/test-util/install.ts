@@ -1,5 +1,5 @@
-import { copyFileSync } from "fs";
+import { spawnSync } from "child_process";
 
 export function installHook(): void {
-  copyFileSync("dist/commit-msg", ".git/hooks/commit-msg");
+  spawnSync("node", ["dist/index.js", "install"]);
 }

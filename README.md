@@ -1,5 +1,7 @@
 # branch-commit-msg
 
+[![Build](https://github.com/brajkowski/branch-commit-msg/actions/workflows/build.yml/badge.svg)](https://github.com/brajkowski/branch-commit-msg/actions/workflows/build.yml)
+
 ## Overview
 
 `branch-commit-msg` is a [git commit-msg hook](https://git-scm.com/docs/githooks#_commit_msg) that extracts a configurable regex pattern from the current branch and reformats the final commit message to the configured format.

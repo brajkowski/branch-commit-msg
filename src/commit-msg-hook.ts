@@ -19,9 +19,10 @@ try {
   if (!(error instanceof GitError)) {
     throw error;
   }
+  exit(0);
 }
 
-const branchMatches = branchName!.match(
+const branchMatches = branchName.match(
   new RegExp(
     hookConfig.extractPattern,
     hookConfig.extractPatternMatchCase ? undefined : "i"

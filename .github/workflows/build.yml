@@ -19,3 +19,6 @@ jobs:
       - run: yarn check:format
       - run: yarn check:lint
       - run: yarn test:coverage
+      - uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/unit/clover.xml,./coverage/integration/clover.xml,./coverage/e2e/clover.xml

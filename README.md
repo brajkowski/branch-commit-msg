@@ -9,6 +9,21 @@
 
 `branch-commit-msg` is a [git commit-msg hook](https://git-scm.com/docs/githooks#_commit_msg) that extracts a configurable regex pattern from the current branch and reformats the final commit message to the configured format.
 
+## Installation
+
+With no dependency:
+
+```sh
+$ npx branch-commit-msg install
+```
+
+With [husky](https://github.com/typicode/husky):
+
+```sh
+$ npm install -D branch-commit-msg
+$ npx husky add .husky/commit-msg 'npx branch-commit-msg-hook "$1"'
+```
+
 ## Examples
 
 ### Preface commit message with a [Shortcut](https://shortcut.com/) ticket number

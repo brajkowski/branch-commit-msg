@@ -1,20 +1,33 @@
 {
   "name": "branch-commit-msg",
   "description": "A git commit-msg hook that automatically inserts a matched pattern from the active branch name to the commit message.",
+  "license": "MIT",
+  "author": "Brandon Rajkowski <github@brajkowski.bulc.club>",
   "main": "dist/index.js",
   "bin": {
     "branch-commit-msg": "dist/index.js",
     "branch-commit-msg-hook": "dist/commit-msg"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/brajkowski/branch-commit-msg.git"
   },
-  "author": "Brandon Rajkowski <github@brajkowski.bulc.club>",
-  "license": "MIT",
-  "files": [
-    "dist"
-  ],
+  "scripts": {
+    "build": "rimraf dist && yarn bundle:hook && yarn bundle:index",
+    "bundle:hook": "esbuild src/commit-msg-hook.ts --bundle --minify --platform=node --outfile=dist/commit-msg",
+    "bundle:index": "esbuild src/index.ts --bundle --minify --platform=node --outfile=dist/index.js",
+    "check:format": "prettier --check .",
+    "check:lint": "eslint .",
+    "test": "yarn test:unit && yarn test:integration && yarn test:e2e",
+    "test:coverage": "yarn test:unit --coverage && yarn test:integration --coverage && yarn test:e2e --coverage",
+    "test:unit": "jest --testPathPattern=test/unit --config jest.config.unit.ts",
+    "test:integration": "ts-node test/integration/index.ts --config jest.config.integration.ts",
+    "test:e2e": "yarn build && ts-node test/e2e/index.ts --config jest.config.e2e.ts",
+    "prepare": "husky install"
+  },
   "devDependencies": {
     "@types/jest": "^28.1.1",
     "@types/node": "^17.0.42",
@@ -34,19 +47,6 @@
     "ts-node": "^10.8.1",
     "typescript": "^4.7.3",
     "yargs": "^17.5.1"
-  },
-  "scripts": {
-    "build": "rimraf dist && yarn bundle:hook && yarn bundle:index",
-    "bundle:hook": "esbuild src/commit-msg-hook.ts --bundle --minify --platform=node --outfile=dist/commit-msg",
-    "bundle:index": "esbuild src/index.ts --bundle --minify --platform=node --outfile=dist/index.js",
-    "check:format": "prettier --check .",
-    "check:lint": "eslint .",
-    "test": "yarn test:unit && yarn test:integration && yarn test:e2e",
-    "test:coverage": "yarn test:unit --coverage && yarn test:integration --coverage && yarn test:e2e --coverage",
-    "test:unit": "jest --testPathPattern=test/unit --config jest.config.unit.ts",
-    "test:integration": "ts-node test/integration/index.ts --config jest.config.integration.ts",
-    "test:e2e": "yarn build && ts-node test/e2e/index.ts --config jest.config.e2e.ts",
-    "prepare": "husky install"
   },
   "dependencies": {}
 }

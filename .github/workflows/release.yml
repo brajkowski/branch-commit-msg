@@ -16,7 +16,10 @@ jobs:
           node-version: "16"
           cache: "yarn"
       - run: yarn install --frozen-lockfile
-      - run: yarn test
+      - run: yarn test:coverage
+      - uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/unit/clover.xml,./coverage/integration/clover.xml,./coverage/e2e/clover.xml
       - env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

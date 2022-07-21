@@ -43,6 +43,7 @@
     "check:format": "prettier --check .",
     "check:lint": "eslint .",
     "test": "yarn test:unit && yarn test:integration && yarn test:e2e",
+    "test:coverage": "yarn test:unit --coverage && yarn test:integration --coverage && yarn test:e2e --coverage",
     "test:unit": "jest --testPathPattern=test/unit --config jest.config.unit.ts",
     "test:integration": "ts-node test/integration/index.ts --config jest.config.integration.ts",
     "test:e2e": "yarn build && ts-node test/e2e/index.ts --config jest.config.e2e.ts",

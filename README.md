@@ -24,9 +24,51 @@ $ npm install -D branch-commit-msg
 $ npx husky add .husky/commit-msg 'npx branch-commit-msg-hook "$1"'
 ```
 
-## Examples
+## Usage
 
-### Preface commit message with a [Shortcut](https://shortcut.com/) ticket number
+After installation, create a `.commitmsgrc.json` file at the root of your project and configure how you would like to reformat your final commit message based on elements of the active branch name:
+
+```ts
+// .commitmsgrc.json
+
+{
+  /*
+    Regex group pattern to extract from branch name.
+      - ex: "(sc)-?[0-9]+"
+  */
+  "extractPattern": string,
+
+  /*
+    Whether the extractPattern is case-sensitive.
+      - ex: true
+  */
+  "extractPatternMatchCase": boolean,
+
+  /*
+    Final output format for the commit message.
+
+    Formatting Placeholders:
+      %b0: access the entire matched pattern from the branch name
+      %b1: access the first matched group pattern from the branch name
+      %bn: access the 'n'th matched group pattern from the branch name
+        - ex: "%b6" accesses the 6th matched group pattern
+      %m: the original commit message
+
+    Pipes:
+      lower: applies lower casing to the formatting placeholder
+        - ex: "$b2 | lower"
+      upper: applies upper casing to the formatting placeholder
+        - ex: "%m | upper"
+  */
+  "commitMsgFormat": string
+}
+```
+
+After your `.commitmsgrc.json` is configured, start making commits!
+
+### Examples
+
+#### Preface commit message with a [Shortcut](https://shortcut.com/) ticket number:
 
 ```json
 // .commitmsgrc.json (at repository root)
@@ -44,7 +86,7 @@ $ git log -1 --pretty=%B
 # Output: SC-123456 - added a thing
 ```
 
-### Suffix and format a commit message with a [JIRA](https://www.atlassian.com/software/jira) ticket
+#### Suffix and format a commit message with a [JIRA](https://www.atlassian.com/software/jira) ticket:
 
 ```json
 // .commitmsgrc.json (at repository root)
@@ -62,7 +104,7 @@ $ git log -1 --pretty=%B
 # Output: added a thing (SOMEPRJ-123456)
 ```
 
-### Go crazy with group matching
+#### Go crazy with group matching:
 
 ```json
 // .commitmsgrc.json (at repository root)

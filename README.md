@@ -94,18 +94,10 @@ $ git log -1 --pretty=%B
 $ yarn install
 ```
 
-### Testing
-
-All testing levels can be executed with:
+### Test
 
 ```
-$ yarn test
-```
-
-Individual testing levels can be executed with:
-
-```
-$ yarn test:[unit|integration|e2e]
+$ yarn test[:unit|:integration|:e2e]
 ```
 
 ### Build

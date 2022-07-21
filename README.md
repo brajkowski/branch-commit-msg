@@ -66,12 +66,11 @@ After installation, create a `.commitmsgrc.json` file at the root of your projec
 
 After your `.commitmsgrc.json` is configured, start making commits!
 
-### Examples
+### Configuration Examples
 
 #### Preface commit message with a [Shortcut](https://shortcut.com/) ticket number:
 
 ```json
-// .commitmsgrc.json (at repository root)
 {
   "extractPattern": "sc-[0-9]+",
   "extractPatternMatchCase": false,
@@ -89,7 +88,6 @@ $ git log -1 --pretty=%B
 #### Suffix and format a commit message with a [JIRA](https://www.atlassian.com/software/jira) ticket:
 
 ```json
-// .commitmsgrc.json (at repository root)
 {
   "extractPattern": "SOMEPRJ-[0-9]+",
   "extractPatternMatchCase": false,
@@ -107,7 +105,6 @@ $ git log -1 --pretty=%B
 #### Go crazy with group matching:
 
 ```json
-// .commitmsgrc.json (at repository root)
 {
   "extractPattern": "(some).*(complex[0-9-]+).*(branch)",
   "extractPatternMatchCase": false,

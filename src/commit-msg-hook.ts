@@ -10,7 +10,7 @@ const currentCommitMsg = readFileSync(commitMsgFilePath).toString().trimEnd();
 const hookConfig = getConfig();
 
 if (hookConfig === undefined) {
-  exit();
+  exit(0);
 }
 
 try {
@@ -30,7 +30,7 @@ const branchMatches = branchName.match(
 );
 
 if (!branchMatches) {
-  exit();
+  exit(0);
 }
 
 let newCommitMsg = hookConfig.commitMsgFormat;

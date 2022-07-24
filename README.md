@@ -24,6 +24,22 @@ $ npm install -D branch-commit-msg
 $ npx husky add .husky/commit-msg 'npx branch-commit-msg-hook "$1"'
 ```
 
+## Uninstall
+
+With no dependency:
+
+```sh
+$ rm .git/hooks/commit-msg
+```
+
+With [husky](https://github.com/typicode/husky):
+
+Remove `npx branch-commit-msg-hook "$1"` from `.husky/commit-msg and run:
+
+```sh
+$ npm uninstall branch-commit-msg
+```
+
 ## Usage
 
 After installation, create a `.commitmsgrc.json` file at the root of your project and configure how you would like to reformat your final commit message based on elements of the active branch name:

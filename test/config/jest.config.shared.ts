@@ -9,6 +9,7 @@ const config: Config.InitialOptions = {
     "!src/index.ts",
     "!src/install.ts",
   ],
+  rootDir: "../",
 };
 
 export default config;

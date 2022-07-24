@@ -1,6 +1,7 @@
 # branch-commit-msg
 
 [![Build](https://github.com/brajkowski/branch-commit-msg/actions/workflows/build.yml/badge.svg)](https://github.com/brajkowski/branch-commit-msg/actions/workflows/build.yml)
+[![npm:latest](https://img.shields.io/npm/v/branch-commit-msg/latest?color=limegreen&logo=npm)](https://www.npmjs.com/package/branch-commit-msg)
 [![npm:beta](https://img.shields.io/npm/v/branch-commit-msg/beta?logo=npm)](https://www.npmjs.com/package/branch-commit-msg)
 [![codecov](https://codecov.io/gh/brajkowski/branch-commit-msg/branch/beta/graph/badge.svg?token=NWWKAPQ3C7)](https://codecov.io/gh/brajkowski/branch-commit-msg)
 [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
@@ -34,7 +35,7 @@ $ rm .git/hooks/commit-msg
 
 With [husky](https://github.com/typicode/husky):
 
-Remove `npx branch-commit-msg-hook "$1"` from `.husky/commit-msg and run:
+Remove `npx branch-commit-msg-hook "$1"` from `.husky/commit-msg` and run:
 
 ```sh
 $ npm uninstall branch-commit-msg

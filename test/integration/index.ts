@@ -1,20 +1,19 @@
 import containerizedTest from "../containerized-test";
 
 const yarnScriptArgs = process.argv.slice(2);
-const testCmd = [
-  "yarn",
-  "jest",
-  "--testPathPattern=integration",
-  "-i",
-  ...yarnScriptArgs,
-].join(" ");
 
-containerizedTest(testCmd, "node:16", [
-  "node_modules",
-  "package.json",
-  "yarn.lock",
-  "tsconfig.json",
-  "src",
-  "test",
-  "coverage",
-]);
+containerizedTest(
+  "yarn",
+  ["jest", "--testPathPattern=integration", "-i", ...yarnScriptArgs],
+  {
+    sharedHostFiles: [
+      "node_modules",
+      "package.json",
+      "yarn.lock",
+      "tsconfig.json",
+      "src",
+      "test",
+      "coverage",
+    ],
+  }
+);

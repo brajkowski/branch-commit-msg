@@ -1,7 +1,5 @@
 import { spawnSync } from "child_process";
 
-const containerName = "branch-commit-msg-test-env";
-
 function shareWithContainer(
   hostCwd: string,
   hostCwdFile: string,
@@ -10,19 +8,33 @@ function shareWithContainer(
   return `-v ${hostCwd}/${hostCwdFile}:${containerWd}/${hostCwdFile}`;
 }
 
+export type ContainerizedTestOptions = {
+  containerName?: string;
+  containerWorkingDirectory?: string;
+  dockerImage?: string;
+  sharedHostFiles?: string[];
+};
+
+const defaultTestOptions: Required<ContainerizedTestOptions> = {
+  containerName: "branch-commit-msg-test-env",
+  containerWorkingDirectory: "/app",
+  dockerImage: "node:16",
+  sharedHostFiles: [],
+};
+
 export default function containerizedTest(
   testCmd: string,
-  sharedHostFiles: string[] = [],
-  dockerImage = "node:16"
+  testOptions: ContainerizedTestOptions = {}
 ): never {
+  const options = { ...defaultTestOptions, ...testOptions };
   const hostCwd = process.cwd();
-  const containerWd = "/app";
-  const sharedFiles = sharedHostFiles
+  const containerWd = options.containerWorkingDirectory;
+  const sharedFiles = options.sharedHostFiles
     .map((file) => shareWithContainer(hostCwd, file, containerWd))
     .join(" ");
-  const dockerCmd = `docker run ${sharedFiles} --workdir ${containerWd} --name ${containerName} ${dockerImage} ${testCmd}`;
+  const dockerCmd = `docker run ${sharedFiles} --workdir ${containerWd} --name ${options.containerName} ${options.dockerImage} ${testCmd}`;
   const result = spawnSync(dockerCmd, { stdio: "inherit", shell: true }).status;
-  spawnSync(`docker rm ${containerName}`, { shell: true });
+  spawnSync(`docker rm ${options.containerName}`, { shell: true });
 
   if (result === null) {
     process.exit(-1);

@@ -9,13 +9,15 @@ const testCmd = [
   ...yarnScriptArgs,
 ].join(" ");
 
-containerizedTest(testCmd, [
-  "node_modules",
-  "package.json",
-  "yarn.lock",
-  "tsconfig.json",
-  "src",
-  "test",
-  "dist",
-  "coverage",
-]);
+containerizedTest(testCmd, {
+  sharedHostFiles: [
+    "node_modules",
+    "package.json",
+    "yarn.lock",
+    "tsconfig.json",
+    "src",
+    "test",
+    "dist",
+    "coverage",
+  ],
+});

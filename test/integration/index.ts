@@ -1,19 +1,24 @@
-import containerizedTest from "../containerized-test";
+import containerizedTest, {
+  SupportedNodeDockerImage,
+} from "../containerized-test";
 
 const yarnScriptArgs = process.argv.slice(2);
-
-containerizedTest(
-  "yarn",
-  ["jest", "--testPathPattern=integration", "-i", ...yarnScriptArgs],
-  {
-    sharedHostFiles: [
-      "node_modules",
-      "package.json",
-      "yarn.lock",
-      "tsconfig.json",
-      "src",
-      "test",
-      "coverage",
-    ],
-  }
-);
+Object.values(SupportedNodeDockerImage).forEach((dockerImage) => {
+  console.log(`Running tests for ${dockerImage}`);
+  containerizedTest(
+    "yarn",
+    ["jest", "--testPathPattern=integration", "-i", ...yarnScriptArgs],
+    {
+      dockerImage,
+      sharedHostFiles: [
+        "node_modules",
+        "package.json",
+        "yarn.lock",
+        "tsconfig.json",
+        "src",
+        "test",
+        "coverage",
+      ],
+    }
+  );
+});

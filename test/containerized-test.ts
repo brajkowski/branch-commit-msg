@@ -8,17 +8,23 @@ function shareWithContainer(
   return `-v ${hostCwd}/${hostCwdFile}:${containerWd}/${hostCwdFile}`;
 }
 
+export enum SupportedNodeDockerImage {
+  maintenanceLTS = "node:14",
+  activeLTS = "node:16",
+  current = "node:18",
+}
+
 export type ContainerizedTestOptions = {
   containerName?: string;
   containerWorkingDirectory?: string;
-  dockerImage?: string;
+  dockerImage?: SupportedNodeDockerImage;
   sharedHostFiles?: string[];
 };
 
 const defaultTestOptions: Required<ContainerizedTestOptions> = {
   containerName: "branch-commit-msg-test-env",
   containerWorkingDirectory: "/app",
-  dockerImage: "node:16",
+  dockerImage: SupportedNodeDockerImage.activeLTS,
   sharedHostFiles: [],
 };
 
@@ -26,7 +32,7 @@ export default function containerizedTest(
   testCommand: string,
   testCommandArgs: string[],
   testOptions: ContainerizedTestOptions = {}
-): never {
+): void {
   const options = { ...defaultTestOptions, ...testOptions };
   const hostCwd = process.cwd();
   const sharedFiles = options.sharedHostFiles.map((file) =>
@@ -52,5 +58,8 @@ export default function containerizedTest(
   if (result === null) {
     process.exit(-1);
   }
-  process.exit(result);
+
+  if (result !== 0) {
+    process.exit(result);
+  }
 }

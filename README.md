@@ -141,7 +141,7 @@ $ git log -1 --pretty=%B
 ### Prerequisites
 
 - [Docker](https://www.docker.com/) installation (for integration and end-to-end (e2e) testing)
-- [Node.js](https://nodejs.org/en/) runtime
+- [Node.js](https://nodejs.org/en/) (>=14.0.0) runtime
 - [Yarn](https://yarnpkg.com/) installation
 
 ### Install Dependencies

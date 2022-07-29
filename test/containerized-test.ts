@@ -23,7 +23,8 @@ const defaultTestOptions: Required<ContainerizedTestOptions> = {
 };
 
 export default function containerizedTest(
-  testCmd: string,
+  testCommand: string,
+  testCommandArgs: string[],
   testOptions: ContainerizedTestOptions = {}
 ): never {
   const options = { ...defaultTestOptions, ...testOptions };
@@ -41,7 +42,8 @@ export default function containerizedTest(
       "--name",
       options.containerName,
       options.dockerImage,
-      testCmd,
+      testCommand,
+      testCommandArgs,
     ].flat(),
     { stdio: "inherit", shell: true }
   ).status;

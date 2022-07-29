@@ -28,12 +28,23 @@ export default function containerizedTest(
 ): never {
   const options = { ...defaultTestOptions, ...testOptions };
   const hostCwd = process.cwd();
-  const containerWd = options.containerWorkingDirectory;
-  const sharedFiles = options.sharedHostFiles
-    .map((file) => shareWithContainer(hostCwd, file, containerWd))
-    .join(" ");
-  const dockerCmd = `docker run ${sharedFiles} --workdir ${containerWd} --name ${options.containerName} ${options.dockerImage} ${testCmd}`;
-  const result = spawnSync(dockerCmd, { stdio: "inherit", shell: true }).status;
+  const sharedFiles = options.sharedHostFiles.map((file) =>
+    shareWithContainer(hostCwd, file, options.containerWorkingDirectory)
+  );
+  const result = spawnSync(
+    "docker",
+    [
+      "run",
+      sharedFiles,
+      "--workdir",
+      options.containerWorkingDirectory,
+      "--name",
+      options.containerName,
+      options.dockerImage,
+      testCmd,
+    ].flat(),
+    { stdio: "inherit", shell: true }
+  ).status;
   spawnSync(`docker rm ${options.containerName}`, { shell: true });
 
   if (result === null) {

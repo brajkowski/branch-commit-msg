@@ -12,8 +12,8 @@ function shareWithContainer(
 
 export default function containerizedTest(
   testCmd: string,
-  dockerImage: string,
-  sharedHostFiles: string[] = []
+  sharedHostFiles: string[] = [],
+  dockerImage = "node:16"
 ): never {
   const hostCwd = process.cwd();
   const containerWd = "/app";

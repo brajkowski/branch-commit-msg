@@ -9,7 +9,7 @@ const testCmd = [
   ...yarnScriptArgs,
 ].join(" ");
 
-containerizedTest(testCmd, "node:16", [
+containerizedTest(testCmd, [
   "node_modules",
   "package.json",
   "yarn.lock",

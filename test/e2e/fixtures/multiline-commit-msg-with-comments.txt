@@ -1,0 +1,5 @@
+my message
+# This is testing a multiline commit message
+# with comments that you might see if you used
+# "git commit" without the "-m" flag.
+#

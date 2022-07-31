@@ -54,7 +54,10 @@ function dedupeCurrentCommitMsg(
 
 let branchName: string;
 const commitMsgFilePath = process.argv[process.argv.length - 1];
-const currentCommitMsg = readFileSync(commitMsgFilePath).toString().trimEnd();
+const currentCommitMsg = readFileSync(commitMsgFilePath)
+  .toString()
+  .replace(/^#.*(\r\n|\n|\r)?/gm, "")
+  .trimEnd();
 const hookConfig = getConfig();
 
 if (hookConfig === undefined) {

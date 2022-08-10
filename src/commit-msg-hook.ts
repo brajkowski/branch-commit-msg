@@ -42,6 +42,12 @@ function dedupeCurrentCommitMsg(
       msg.replace(new RegExp(branchDetail, RegExpFlag.IGNORE_CASE), ""),
     currentCommitMsg
   );
+
+  if (currentCommitMsgDeduped === currentCommitMsg) {
+    // The current commit message is not formatted if the message is unchanged after the previous step.
+    return currentCommitMsg;
+  }
+
   if (nonTokenChars) {
     // Remove any non formatting token characters.
     currentCommitMsgDeduped = currentCommitMsgDeduped.replace(

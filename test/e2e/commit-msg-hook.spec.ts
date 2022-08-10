@@ -120,6 +120,26 @@ describe("commit-msg-hook", () => {
         commitMsgFormat: "%m (%b0)",
       },
     },
+    {
+      branch: "branch",
+      originalMessage: "my message",
+      expectedMessage: "branch my message",
+      config: {
+        extractPattern: ".*",
+        extractPatternMatchCase: false,
+        commitMsgFormat: "%b0 %m",
+      },
+    },
+    {
+      branch: "branch",
+      originalMessage: "format has match from message",
+      expectedMessage: "branch match format has match from message",
+      config: {
+        extractPattern: ".*",
+        extractPatternMatchCase: false,
+        commitMsgFormat: "%b0 match %m",
+      },
+    },
   ];
   test.each(configCases)(
     "should update the commit message per the rc file",

@@ -8,6 +8,10 @@ function shareWithContainer(
   return `-v ${hostCwd}/${hostCwdFile}:${containerWd}/${hostCwdFile}`;
 }
 
+function removeContainer(containerName: string): void {
+  spawnSync(`docker rm ${containerName}`, { shell: true });
+}
+
 export enum SupportedNodeDockerImage {
   maintenanceLTS = "node:14",
   activeLTS = "node:16",
@@ -38,6 +42,7 @@ export default function containerizedTest(
   const sharedFiles = options.sharedHostFiles.map((file) =>
     shareWithContainer(hostCwd, file, options.containerWorkingDirectory)
   );
+  removeContainer(options.containerName);
   const result = spawnSync(
     "docker",
     [
@@ -53,7 +58,7 @@ export default function containerizedTest(
     ].flat(),
     { stdio: "inherit", shell: true }
   ).status;
-  spawnSync(`docker rm ${options.containerName}`, { shell: true });
+  removeContainer(options.containerName);
 
   if (result === null) {
     process.exit(-1);

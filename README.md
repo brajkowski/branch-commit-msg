@@ -153,7 +153,7 @@ $ yarn install
 ### Test
 
 ```
-$ yarn test[:unit|:integration|:e2e]
+$ yarn test[:unit|:integration|:e2e|:smoke]
 ```
 
 ### Build

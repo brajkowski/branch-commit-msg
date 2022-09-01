@@ -38,6 +38,8 @@
     "test:unit": "jest --testPathPattern=unit --config test/config/jest.config.unit.ts",
     "test:integration": "ts-node test/integration/index.ts --config test/config/jest.config.integration.ts",
     "test:e2e": "yarn build && ts-node test/e2e/index.ts --config test/config/jest.config.e2e.ts",
+    "test:smoke": "ts-node test/smoke/index.ts --config test/config/jest.config.smoke.ts",
+    "postpublish": "yarn test:smoke",
     "prepare": "husky install"
   },
   "devDependencies": {

@@ -140,6 +140,16 @@ describe("commit-msg-hook", () => {
         commitMsgFormat: "%b0 match %m",
       },
     },
+    {
+      branch: "sc-123456",
+      originalMessage: "scaled up 2022-09-28",
+      expectedMessage: "sc-123456 scaled up 2022-09-28",
+      config: {
+        extractPattern: "(sc)(-)?([0-9]+)",
+        extractPatternMatchCase: false,
+        commitMsgFormat: "%b1 | lower-%b3 %m",
+      },
+    },
   ];
   test.each(configCases)(
     "should update the commit message per the rc file",

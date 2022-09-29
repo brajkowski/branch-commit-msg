@@ -26,36 +26,21 @@ function dedupeCurrentCommitMsg(
   commitMsgFormat: string,
   branchMatches: RegExpMatchArray
 ): string {
-  const nonTokenChars = commitMsgFormat
-    // Find all formatting tokens.
-    .match(/(%m|%b[0-9]+)(\s\|\s(lower|upper))?/g)
-
-    // Remove all formatting tokens -- what remains are the non formatting token characters.
-    ?.reduce(
-      (msgFormat, formatToken) => msgFormat.replace(formatToken, ""),
-      commitMsgFormat
-    );
-
-  let currentCommitMsgDeduped = branchMatches.reduce(
-    // Remove any matched branch details.
-    (msg, branchDetail) =>
-      msg.replace(new RegExp(branchDetail, RegExpFlag.IGNORE_CASE), ""),
-    currentCommitMsg
+  const appliedFormatting = branchMatches.reduce(
+    (msg, branchDetail, index) =>
+      msg
+        .replace(`%b${index} | upper`, branchDetail.toUpperCase())
+        .replace(`%b${index} | lower`, branchDetail.toLowerCase())
+        .replace(`%b${index}`, branchDetail),
+    commitMsgFormat
+      .replace("%m | upper", "")
+      .replace("%m | lower", "")
+      .replace("%m", "")
   );
-
-  if (currentCommitMsgDeduped === currentCommitMsg) {
-    // The current commit message is not formatted if the message is unchanged after the previous step.
-    return currentCommitMsg;
-  }
-
-  if (nonTokenChars) {
-    // Remove any non formatting token characters.
-    currentCommitMsgDeduped = currentCommitMsgDeduped.replace(
-      new RegExp(escapeStringRegexp(nonTokenChars), RegExpFlag.IGNORE_CASE),
-      ""
-    );
-  }
-  return currentCommitMsgDeduped;
+  return currentCommitMsg.replace(
+    new RegExp(escapeStringRegexp(appliedFormatting), RegExpFlag.IGNORE_CASE),
+    ""
+  );
 }
 
 let branchName: string;

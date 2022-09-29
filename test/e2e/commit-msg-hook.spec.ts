@@ -163,6 +163,16 @@ describe("commit-msg-hook", () => {
 
   const messageAlreadyFormattedCases = [
     {
+      branch: "sc-123456",
+      originalMessage: "sc-123456 this message is perfect",
+      expectedMessage: "sc-123456 this message is perfect",
+      config: {
+        extractPattern: "(sc)(-)?([0-9]+)",
+        extractPatternMatchCase: false,
+        commitMsgFormat: "%b1 | lower-%b3 %m",
+      },
+    },
+    {
       branch: "branch",
       originalMessage: "BRANCH: message",
       expectedMessage: "branch: MESSAGE",

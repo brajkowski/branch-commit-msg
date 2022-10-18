@@ -46,7 +46,7 @@
     "@types/jest": "^29.1.2",
     "@types/node": "^16.0.0",
     "@types/yargs": "^17.0.13",
-    "@typescript-eslint/eslint-plugin": "^5.39.0",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",
     "esbuild": "^0.15.10",
     "escape-string-regexp": "^5.0.0",

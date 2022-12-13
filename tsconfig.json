@@ -2,7 +2,7 @@
   "compilerOptions": {
     "lib": ["ES2020", "ES2021", "ES2022"],
     "module": "commonjs",
-    "target": "es2021",
+    "target": "ES2022",
     "outDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

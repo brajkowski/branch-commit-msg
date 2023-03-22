@@ -1,0 +1,18 @@
+queue_rules:
+  - name: default
+    update_method: merge
+    merge_conditions:
+      - check-success=Build
+
+pull_request_rules:
+  - name: automatic merge for Dependabot pull requests
+    conditions:
+      - author=dependabot[bot]
+      - check-success=Build
+    actions:
+      queue:
+        name: default
+        method: squash
+        commit_message_template: |-
+          {{ title }} (#{{ number }})
+          {{ body }}

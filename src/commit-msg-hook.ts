@@ -3,26 +3,26 @@ import escapeStringRegexp from "escape-string-regexp";
 import { readFileSync, writeFileSync } from "fs";
 import { exit } from "process";
 import { getConfig } from "./config";
-import { activeBranchName, GitError } from "./git-interop";
+import { GitError, activeBranchName } from "./git-interop";
 
 enum RegExpFlag {
   IGNORE_CASE = "i",
 }
 
 /**
- * Prevent messages that are already in the proper format
+ * Prevent commit subjects that are already in the proper format
  * from being formatted again which would duplicate any matched
- * branch details and non formatting token characters in the final commit message.
+ * branch details and non formatting token characters in the final commit subject.
  *
  * This allows amending a commit message to work as expected.
  *
- * @param currentCommitMsg
+ * @param currentCommitSubject
  * @param commitMsgFormat
  * @param branchMatches
- * @returns The current commit message removed of any formatting that may have already been applied.
+ * @returns The current commit subject removed of any formatting that may have already been applied.
  */
-function dedupeCurrentCommitMsg(
-  currentCommitMsg: string,
+function dedupeCurrentCommitSubject(
+  currentCommitSubject: string,
   commitMsgFormat: string,
   branchMatches: RegExpMatchArray
 ): string {
@@ -37,7 +37,7 @@ function dedupeCurrentCommitMsg(
       .replace("%m | lower", "")
       .replace("%m", "")
   );
-  return currentCommitMsg.replace(
+  return currentCommitSubject.replace(
     new RegExp(escapeStringRegexp(appliedFormatting), RegExpFlag.IGNORE_CASE),
     ""
   );
@@ -45,10 +45,10 @@ function dedupeCurrentCommitMsg(
 
 let branchName: string;
 const commitMsgFilePath = process.argv[process.argv.length - 1];
-const currentCommitMsg = readFileSync(commitMsgFilePath)
+const commitMsgFileLines = readFileSync(commitMsgFilePath)
   .toString()
-  .replace(/^#.*(\r\n|\n|\r)?/gm, "")
-  .trimEnd();
+  .split(/\r?\n/);
+const currentCommitSubject = commitMsgFileLines[0];
 const hookConfig = getConfig();
 
 if (hookConfig === undefined) {
@@ -75,13 +75,13 @@ if (!branchMatches) {
   exit(0);
 }
 
-const currentCommitMsgDeduped = dedupeCurrentCommitMsg(
-  currentCommitMsg,
+const currentCommitSubjectDeduped = dedupeCurrentCommitSubject(
+  currentCommitSubject,
   hookConfig.commitMsgFormat,
   branchMatches
 );
 
-const newCommitMsg = branchMatches
+const newCommitSubject = branchMatches
   .reduce(
     (msg, branchDetail, index) =>
       msg
@@ -90,8 +90,9 @@ const newCommitMsg = branchMatches
         .replace(`%b${index}`, branchDetail),
     hookConfig.commitMsgFormat
   )
-  .replace("%m | upper", currentCommitMsgDeduped.toUpperCase())
-  .replace("%m | lower", currentCommitMsgDeduped.toLowerCase())
-  .replace("%m", currentCommitMsgDeduped);
+  .replace("%m | upper", currentCommitSubjectDeduped.toUpperCase())
+  .replace("%m | lower", currentCommitSubjectDeduped.toLowerCase())
+  .replace("%m", currentCommitSubjectDeduped);
+commitMsgFileLines[0] = newCommitSubject;
 
-writeFileSync(commitMsgFilePath, newCommitMsg);
+writeFileSync(commitMsgFilePath, commitMsgFileLines.join("\n"));

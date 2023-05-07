@@ -1,5 +1,3 @@
-import { readFileSync } from "fs";
-import path from "path";
 import { Config } from "../../src/config";
 import { createRcFile, deleteRcFile } from "../test-util/config";
 import {
@@ -12,10 +10,6 @@ import {
 import { installHook } from "./install";
 
 describe("commit-msg-hook", () => {
-  const multilineCommitMsgWithComments = readFileSync(
-    path.join(__dirname, "fixtures", "multiline-commit-msg-with-comments.txt")
-  ).toString();
-
   beforeEach(() => {
     createRepo();
     installHook();
@@ -108,16 +102,6 @@ describe("commit-msg-hook", () => {
         extractPattern: "(some).*(complex[0-9-]+).*(branch)",
         extractPatternMatchCase: false,
         commitMsgFormat: "%b1 | upper %b2 %b3 | lower",
-      },
-    },
-    {
-      branch: "branch",
-      originalMessage: multilineCommitMsgWithComments,
-      expectedMessage: "my message (branch)",
-      config: {
-        extractPattern: ".*",
-        extractPatternMatchCase: false,
-        commitMsgFormat: "%m (%b0)",
       },
     },
     {

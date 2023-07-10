@@ -3,7 +3,7 @@ import { spawnSync } from "child_process";
 function shareWithContainer(
   hostCwd: string,
   hostCwdFile: string,
-  containerWd: string
+  containerWd: string,
 ): string {
   return `-v ${hostCwd}/${hostCwdFile}:${containerWd}/${hostCwdFile}`;
 }
@@ -35,12 +35,12 @@ const defaultTestOptions: Required<ContainerizedTestOptions> = {
 export default function containerizedTest(
   testCommand: string,
   testCommandArgs: string[],
-  testOptions: ContainerizedTestOptions = {}
+  testOptions: ContainerizedTestOptions = {},
 ): void {
   const options = { ...defaultTestOptions, ...testOptions };
   const hostCwd = process.cwd();
   const sharedFiles = options.sharedHostFiles.map((file) =>
-    shareWithContainer(hostCwd, file, options.containerWorkingDirectory)
+    shareWithContainer(hostCwd, file, options.containerWorkingDirectory),
   );
   removeContainer(options.containerName);
   const result = spawnSync(
@@ -56,7 +56,7 @@ export default function containerizedTest(
       testCommand,
       testCommandArgs,
     ].flat(),
-    { stdio: "inherit", shell: true }
+    { stdio: "inherit", shell: true },
   ).status;
   removeContainer(options.containerName);
 

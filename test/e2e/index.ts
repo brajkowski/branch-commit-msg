@@ -20,6 +20,6 @@ Object.values(SupportedNodeDockerImage).forEach((dockerImage) => {
         "dist",
         "coverage",
       ],
-    }
+    },
   );
 });

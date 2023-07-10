@@ -11,7 +11,7 @@ export function installAsGitHook(): void {
   } catch (err) {
     if (err instanceof GitError) {
       throw Error(
-        "Could not find the root of the repository -- check that git is installed and that this install is running inside of a git repository."
+        "Could not find the root of the repository -- check that git is installed and that this install is running inside of a git repository.",
       );
     }
     throw err;

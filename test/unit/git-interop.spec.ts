@@ -8,7 +8,7 @@ import {
 
 function createMockSpawnSyncReturns(
   status: number,
-  output: (string | null)[] = []
+  output: (string | null)[] = [],
 ): SpawnSyncReturns<string> {
   return {
     status,
@@ -32,7 +32,7 @@ describe("git-interop", () => {
       (status) => {
         const error = new GitError(status);
         expect(error.message).toMatch(new RegExp(`${status}`));
-      }
+      },
     );
     test.each(statusCases)("should return the status of %p", (status) => {
       const error = new GitError(status);
@@ -49,7 +49,7 @@ describe("git-interop", () => {
   describe("activeBranchName()", () => {
     it("should throw an error if the git command does not succeed", () => {
       expect(() =>
-        activeBranchName(() => createMockSpawnSyncReturns(1))
+        activeBranchName(() => createMockSpawnSyncReturns(1)),
       ).toThrow(GitError);
     });
 
@@ -57,8 +57,12 @@ describe("git-interop", () => {
       const expectedBranchName = "my-branch";
       expect(
         activeBranchName(() =>
-          createMockSpawnSyncReturns(0, [null, `${expectedBranchName}\n`, null])
-        )
+          createMockSpawnSyncReturns(0, [
+            null,
+            `${expectedBranchName}\n`,
+            null,
+          ]),
+        ),
       ).toEqual(expectedBranchName);
     });
 
@@ -67,16 +71,16 @@ describe("git-interop", () => {
       "should throw an error if the git command succeeds with an unexpected output format of %p",
       (output) => {
         expect(() =>
-          activeBranchName(() => createMockSpawnSyncReturns(0, output))
+          activeBranchName(() => createMockSpawnSyncReturns(0, output)),
         ).toThrow(ResultExtractionError);
-      }
+      },
     );
   });
 
   describe("repoRootDir()", () => {
     it("should throw an error if the git command does not succeed", () => {
       expect(() => repoRootDir(() => createMockSpawnSyncReturns(1))).toThrow(
-        GitError
+        GitError,
       );
     });
 
@@ -88,8 +92,8 @@ describe("git-interop", () => {
             null,
             `${expectedRepoRootDir}\n`,
             null,
-          ])
-        )
+          ]),
+        ),
       ).toEqual(expectedRepoRootDir);
     });
 
@@ -98,9 +102,9 @@ describe("git-interop", () => {
       "should throw an error if the git command succeeds with an unexpected output format of %p",
       (output) => {
         expect(() =>
-          repoRootDir(() => createMockSpawnSyncReturns(0, output))
+          repoRootDir(() => createMockSpawnSyncReturns(0, output)),
         ).toThrow(ResultExtractionError);
-      }
+      },
     );
   });
 });

@@ -142,7 +142,7 @@ describe("commit-msg-hook", () => {
       checkoutBranch(branch);
       commit(originalMessage);
       expect(latestCommitMessage()).toEqual(expectedMessage);
-    }
+    },
   );
 
   const messageAlreadyFormattedCases = [
@@ -214,6 +214,6 @@ describe("commit-msg-hook", () => {
       checkoutBranch(branch);
       commit(originalMessage);
       expect(latestCommitMessage()).toEqual(expectedMessage);
-    }
+    },
   );
 });

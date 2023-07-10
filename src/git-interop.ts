@@ -18,7 +18,7 @@ export function extractGitCmdOutput(result: SpawnSyncReturns<string>): string {
   }
   if (result.output.length < 2 || !result.output[1]) {
     throw new ResultExtractionError(
-      `Received unexpected output: ${result.output}`
+      `Received unexpected output: ${result.output}`,
     );
   }
   return result.output[1].trim();

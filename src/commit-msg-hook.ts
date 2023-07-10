@@ -24,7 +24,7 @@ enum RegExpFlag {
 function dedupeCurrentCommitSubject(
   currentCommitSubject: string,
   commitMsgFormat: string,
-  branchMatches: RegExpMatchArray
+  branchMatches: RegExpMatchArray,
 ): string {
   const appliedFormatting = branchMatches.reduce(
     (msg, branchDetail, index) =>
@@ -35,11 +35,11 @@ function dedupeCurrentCommitSubject(
     commitMsgFormat
       .replace("%m | upper", "")
       .replace("%m | lower", "")
-      .replace("%m", "")
+      .replace("%m", ""),
   );
   return currentCommitSubject.replace(
     new RegExp(escapeStringRegexp(appliedFormatting), RegExpFlag.IGNORE_CASE),
-    ""
+    "",
   );
 }
 
@@ -67,8 +67,8 @@ try {
 const branchMatches = branchName.match(
   new RegExp(
     hookConfig.extractPattern,
-    hookConfig.extractPatternMatchCase ? undefined : RegExpFlag.IGNORE_CASE
-  )
+    hookConfig.extractPatternMatchCase ? undefined : RegExpFlag.IGNORE_CASE,
+  ),
 );
 
 if (!branchMatches) {
@@ -78,7 +78,7 @@ if (!branchMatches) {
 const currentCommitSubjectDeduped = dedupeCurrentCommitSubject(
   currentCommitSubject,
   hookConfig.commitMsgFormat,
-  branchMatches
+  branchMatches,
 );
 
 const newCommitSubject = branchMatches
@@ -88,7 +88,7 @@ const newCommitSubject = branchMatches
         .replace(`%b${index} | upper`, branchDetail.toUpperCase())
         .replace(`%b${index} | lower`, branchDetail.toLowerCase())
         .replace(`%b${index}`, branchDetail),
-    hookConfig.commitMsgFormat
+    hookConfig.commitMsgFormat,
   )
   .replace("%m | upper", currentCommitSubjectDeduped.toUpperCase())
   .replace("%m | lower", currentCommitSubjectDeduped.toLowerCase())

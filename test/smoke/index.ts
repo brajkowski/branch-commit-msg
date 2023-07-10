@@ -11,6 +11,6 @@ Object.values(SupportedNodeDockerImage).forEach((dockerImage) => {
     {
       dockerImage,
       sharedHostFiles: ["node_modules", "tsconfig.json", "src", "test"],
-    }
+    },
   );
 });

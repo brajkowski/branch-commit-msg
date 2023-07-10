@@ -37,7 +37,7 @@ describe("config", () => {
         };
         createRcFileRaw(JSON.stringify(partialConfig));
         expect(getConfig()).toBeUndefined();
-      }
+      },
     );
 
     it("should return the config if the rc file is well-formed", () => {

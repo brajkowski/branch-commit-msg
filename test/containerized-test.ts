@@ -13,9 +13,10 @@ function removeContainer(containerName: string): void {
 }
 
 export enum SupportedNodeDockerImage {
-  maintenanceLTS = "node:14",
-  activeLTS = "node:16",
-  current = "node:18",
+  v14 = "node:14",
+  v16 = "node:16",
+  v18 = "node:18",
+  vCurrent = "node:20",
 }
 
 export type ContainerizedTestOptions = {
@@ -28,7 +29,7 @@ export type ContainerizedTestOptions = {
 const defaultTestOptions: Required<ContainerizedTestOptions> = {
   containerName: "branch-commit-msg-test-env",
   containerWorkingDirectory: "/app",
-  dockerImage: SupportedNodeDockerImage.activeLTS,
+  dockerImage: SupportedNodeDockerImage.v16,
   sharedHostFiles: [],
 };
 

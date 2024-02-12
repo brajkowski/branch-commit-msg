@@ -44,7 +44,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.11",
+    "@types/jest": "^29.5.12",
     "@types/node": "^20.0.0",
     "@types/yargs": "^17.0.32",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
@@ -58,7 +58,7 @@
     "lint-staged": "^15.2.1",
     "prettier": "3.2.5",
     "rimraf": "^5.0.5",
-    "semantic-release": "^23.0.0",
+    "semantic-release": "^23.0.2",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",

@@ -6,7 +6,7 @@ const yarnScriptArgs = process.argv.slice(2);
 Object.values(SupportedNodeDockerImage).forEach((dockerImage) => {
   console.log(`Running tests for ${dockerImage}`);
   containerizedTest(
-    "yarn",
+    "npx",
     ["jest", "--testPathPattern=e2e", "-i", ...yarnScriptArgs],
     {
       dockerImage,

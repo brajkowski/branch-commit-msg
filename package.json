@@ -30,8 +30,8 @@
   ],
   "scripts": {
     "build": "rimraf dist && yarn bundle:hook && yarn bundle:index",
-    "bundle:hook": "esbuild src/commit-msg-hook.ts --bundle --minify --platform=node --outfile=dist/commit-msg",
-    "bundle:index": "esbuild src/index.ts --bundle --minify --platform=node --outfile=dist/index.js",
+    "bundle:hook": "esbuild src/commit-msg-hook.ts --bundle --minify --platform=node --packages=bundle --outfile=dist/commit-msg",
+    "bundle:index": "esbuild src/index.ts --bundle --minify --platform=node --packages=bundle --outfile=dist/index.js",
     "check:format": "prettier --check .",
     "check:lint": "eslint .",
     "test": "yarn test:unit && yarn test:integration && yarn test:e2e",

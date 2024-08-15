@@ -41,7 +41,7 @@
     "test:e2e": "yarn build && ts-node test/e2e/index.ts --config test/config/jest.config.e2e.ts",
     "test:smoke": "ts-node test/smoke/index.ts --config test/config/jest.config.smoke.ts",
     "postpublish": "yarn test:smoke",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.1.0",

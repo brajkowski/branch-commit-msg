@@ -818,10 +818,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.21.0, @eslint/js@npm:^9.21.0":
+"@eslint/js@npm:9.21.0":
   version: 9.21.0
   resolution: "@eslint/js@npm:9.21.0"
   checksum: 238cf810270a13ada3db5fcc05b8031bef8a56186f795f45f1c5b89f5ae1e86240622cd5c39ae4444f34670b4896ebc8ab8e868050d174755bb4caba59c4b8d5
+  languageName: node
+  linkType: hard
+
+"@eslint/js@npm:^9.22.0":
+  version: 9.22.0
+  resolution: "@eslint/js@npm:9.22.0"
+  checksum: 3eb6ed01c31f185b1822b78a872af5b87daa4aaf2ed753ce81c0c7227c852a09e1c7356103259f35f09e77d9e116c796cec6958702044d057f0c179b53b783ec
   languageName: node
   linkType: hard
 
@@ -2824,7 +2831,7 @@ __metadata:
   resolution: "branch-commit-msg@workspace:."
   dependencies:
     "@eslint/eslintrc": ^3.3.0
-    "@eslint/js": ^9.21.0
+    "@eslint/js": ^9.22.0
     "@types/jest": ^29.5.14
     "@types/node": ^20.0.0
     "@types/yargs": ^17.0.33

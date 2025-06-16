@@ -2820,7 +2820,7 @@ __metadata:
     eslint-config-prettier: ^10.1.5
     husky: ^9.1.7
     jest: ^29.7.0
-    lint-staged: ^16.1.0
+    lint-staged: ^16.1.2
     prettier: 3.5.3
     rimraf: ^6.0.1
     semantic-release: ^24.2.5
@@ -6163,9 +6163,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:^16.1.0":
-  version: 16.1.0
-  resolution: "lint-staged@npm:16.1.0"
+"lint-staged@npm:^16.1.2":
+  version: 16.1.2
+  resolution: "lint-staged@npm:16.1.2"
   dependencies:
     chalk: ^5.4.1
     commander: ^14.0.0
@@ -6179,7 +6179,7 @@ __metadata:
     yaml: ^2.8.0
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: e882bfee0f0ddaf4af4d58925af2591ac994a805242fc73205aa950201c3d094de82927d12d766f9d1173917b2e5e71c3ce20b69a0a8d214b22a2264bab5355f
+  checksum: e91a8a8d86c09bf6ec48e8c407595f801535c38c7f6a9bba3c45f71cb312c76f21e0151b439535bdc8f1c45462d887b68c99b75b00b48b2be954fd06064db780
   languageName: node
   linkType: hard
 

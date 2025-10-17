@@ -5,11 +5,13 @@ queue_rules:
       - check-success=Build
     update_method: merge
     merge_conditions:
+      - author=dependabot[bot]
       - check-success=Build
     commit_message_template: |-
       {{ title }} (#{{ number }})
       {{ body }}
     merge_method: squash
+    batch_size: 1
 
 pull_request_rules:
   - name: automatic merge for Dependabot pull requests

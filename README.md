@@ -15,14 +15,14 @@
 With no dependency:
 
 ```sh
-$ npx branch-commit-msg install
+npx branch-commit-msg install
 ```
 
 With [husky](https://github.com/typicode/husky):
 
 ```sh
-$ npm install -D branch-commit-msg
-$ npx husky add .husky/commit-msg 'npx branch-commit-msg-hook "$1"'
+npm install -D branch-commit-msg
+echo 'npx branch-commit-msg-hook "$1"' > .husky/commit-msg
 ```
 
 ## Uninstall
@@ -30,7 +30,7 @@ $ npx husky add .husky/commit-msg 'npx branch-commit-msg-hook "$1"'
 With no dependency:
 
 ```sh
-$ rm .git/hooks/commit-msg
+rm .git/hooks/commit-msg
 ```
 
 With [husky](https://github.com/typicode/husky):
@@ -38,7 +38,7 @@ With [husky](https://github.com/typicode/husky):
 Remove `npx branch-commit-msg-hook "$1"` from `.husky/commit-msg` and run:
 
 ```sh
-$ npm uninstall branch-commit-msg
+npm uninstall branch-commit-msg
 ```
 
 ## Usage
@@ -97,8 +97,8 @@ After your `.commitmsgrc.json` is configured, start making commits!
 
 ```sh
 # Current branch: SC-123456/my-new-feature
-$ git commit -m "added a thing"
-$ git log -1 --pretty=%B
+git commit -m "added a thing"
+git log -1 --pretty=%B
 # Output: SC-123456 - added a thing
 ```
 
@@ -114,8 +114,8 @@ $ git log -1 --pretty=%B
 
 ```sh
 # Current branch: feature/someprj-123456
-$ git commit -m "added a thing"
-$ git log -1 --pretty=%B
+git commit -m "added a thing"
+git log -1 --pretty=%B
 # Output: added a thing (SOMEPRJ-123456)
 ```
 
@@ -131,8 +131,8 @@ $ git log -1 --pretty=%B
 
 ```sh
 # Current branch: some/CoMpLEX-123-5/BRANCH
-$ git commit -m "added a thing"
-$ git log -1 --pretty=%B
+git commit -m "added a thing"
+git log -1 --pretty=%B
 # Output: ADDED A THING to SOME CoMpLEX-123-5 branch
 ```
 

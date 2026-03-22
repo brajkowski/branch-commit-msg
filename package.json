@@ -3,13 +3,13 @@
   "description": "A git commit-msg hook that automatically inserts a matched pattern from the active branch name to the commit message.",
   "license": "MIT",
   "author": "Brandon Rajkowski <github@brajkowski.bulc.club>",
-  "main": "dist/index.js",
+  "main": "dist/index.mjs",
   "engines": {
     "node": ">=20.0.0"
   },
   "packageManager": "yarn@3.3.0",
   "bin": {
-    "branch-commit-msg": "dist/index.js",
+    "branch-commit-msg": "dist/index.mjs",
     "branch-commit-msg-hook": "dist/commit-msg"
   },
   "files": [
@@ -31,7 +31,7 @@
   "scripts": {
     "build": "rimraf dist && yarn bundle:hook && yarn bundle:index",
     "bundle:hook": "esbuild src/commit-msg-hook.ts --bundle --minify --platform=node --packages=bundle --outfile=dist/commit-msg",
-    "bundle:index": "esbuild src/index.ts --bundle --minify --platform=node --packages=bundle --outfile=dist/index.js",
+    "bundle:index": "node build.mjs",
     "check:format": "prettier --check .",
     "check:lint": "eslint .",
     "check:types": "tsc --noEmit",
@@ -65,6 +65,6 @@
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
-    "yargs": "^17.7.2"
+    "yargs": "^18.0.0"
   }
 }

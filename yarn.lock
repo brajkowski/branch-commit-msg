@@ -3275,7 +3275,7 @@ __metadata:
     typescript: ^5.9.3
     yargs: ^18.0.0
   bin:
-    branch-commit-msg: dist/index.js
+    branch-commit-msg: dist/index.mjs
     branch-commit-msg-hook: dist/commit-msg
   languageName: unknown
   linkType: soft

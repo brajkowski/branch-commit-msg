@@ -15,6 +15,7 @@ yarn test:e2e         # E2E tests in Docker containers (runs yarn build first)
 yarn test:smoke       # Smoke tests against the published npm package
 yarn check:lint       # ESLint
 yarn check:format     # Prettier
+yarn check:types      # TypeScript type checking (no emit)
 ```
 
 To run a single test file:

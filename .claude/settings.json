@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true
   },
@@ -10,6 +11,7 @@
       "Bash(yarn bundle:index)",
       "Bash(yarn check:lint*)",
       "Bash(yarn check:format*)",
+      "Bash(yarn check:types)",
       "Bash(yarn test*)"
     ]
   },
@@ -30,6 +32,16 @@
           {
             "type": "command",
             "command": "echo \"$CLAUDE_TOOL_INPUT\" | grep -q '\"file_path\".*src/' && yarn test:unit --silent 2>&1 | tail -5 || exit 0"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"$CLAUDE_TOOL_INPUT\" | grep -q '\"file_path\".*\\.ts' && yarn check:types 2>&1 | tail -10 || exit 0",
+            "statusMessage": "Type checking..."
           }
         ]
       }

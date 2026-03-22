@@ -34,6 +34,7 @@
     "bundle:index": "esbuild src/index.ts --bundle --minify --platform=node --packages=bundle --outfile=dist/index.js",
     "check:format": "prettier --check .",
     "check:lint": "eslint .",
+    "check:types": "tsc --noEmit",
     "test": "yarn test:unit && yarn test:integration && yarn test:e2e",
     "test:coverage": "yarn test:unit --coverage && yarn test:integration --coverage && yarn test:e2e --coverage",
     "test:unit": "jest --testPathPattern=unit --config test/config/jest.config.unit.ts",

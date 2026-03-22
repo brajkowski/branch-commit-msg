@@ -7,7 +7,7 @@ Object.values(SupportedNodeDockerImage).forEach((dockerImage) => {
   console.log(`Running tests for ${dockerImage}`);
   containerizedTest(
     "npx",
-    ["jest", "--testPathPattern=integration", "-i", ...yarnScriptArgs],
+    ["jest", "--testPathPatterns=integration", "-i", ...yarnScriptArgs],
     {
       dockerImage,
       sharedHostFiles: [

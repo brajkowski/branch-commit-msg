@@ -28,7 +28,7 @@ yarn test:unit --testPathPattern=git-interop
 
 `branch-commit-msg` is a git `commit-msg` hook tool with two entry points that get bundled separately:
 
-- **`src/index.ts`** → `dist/index.js` (the `branch-commit-msg` CLI): uses yargs to expose the `install` command, which copies the compiled hook binary into `.git/hooks/commit-msg`.
+- **`src/index.ts`** → `dist/index.mjs` (the `branch-commit-msg` CLI): uses yargs to expose the `install` command, which copies the compiled hook binary into `.git/hooks/commit-msg`.
 - **`src/commit-msg-hook.ts`** → `dist/commit-msg` (the hook itself): runs at commit time, reads `.commitmsgrc.json`, extracts the regex match from the active branch name, and rewrites the commit message file in-place.
 
 Supporting modules:
@@ -88,7 +88,7 @@ PR titles must follow [Conventional Commits](https://www.conventionalcommits.org
 
 The build produces two self-contained bundled binaries in `dist/` (no `node_modules` needed at runtime):
 
-- `dist/index.js` — the CLI
+- `dist/index.mjs` — the CLI
 - `dist/commit-msg` — the hook script
 
 Only the `dist/` directory is published to npm (see `"files"` in `package.json`).

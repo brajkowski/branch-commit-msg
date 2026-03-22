@@ -13,9 +13,6 @@ function removeContainer(containerName: string): void {
 }
 
 export enum SupportedNodeDockerImage {
-  v14 = "node:14",
-  v16 = "node:16",
-  v18 = "node:18",
   v20 = "node:20",
   v22 = "node:22",
   vCurrent = "node:24",
@@ -31,7 +28,7 @@ export type ContainerizedTestOptions = {
 const defaultTestOptions: Required<ContainerizedTestOptions> = {
   containerName: "branch-commit-msg-test-env",
   containerWorkingDirectory: "/app",
-  dockerImage: SupportedNodeDockerImage.v16,
+  dockerImage: SupportedNodeDockerImage.v20,
   sharedHostFiles: [],
 };
 

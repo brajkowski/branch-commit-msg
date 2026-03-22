@@ -10,7 +10,7 @@ yarn build            # Compile TypeScript → dist/ via esbuild (bundles + mini
 yarn test             # Run unit + integration + e2e tests (requires Docker)
 yarn test:coverage    # Run all tests with coverage report
 yarn test:unit        # Unit tests only (no Docker required)
-yarn test:integration # Integration tests in Docker containers (Node 14, 16, 18, 20)
+yarn test:integration # Integration tests in Docker containers (Node 20, 22, 24)
 yarn test:e2e         # E2E tests in Docker containers (runs yarn build first)
 yarn test:smoke       # Smoke tests against the published npm package
 yarn check:lint       # ESLint
@@ -59,12 +59,12 @@ If the file is missing or invalid, the hook exits 0 (no-op).
 
 Tests are split across four suites with distinct purposes:
 
-| Suite       | Location            | Docker | Notes                                                            |
-| ----------- | ------------------- | ------ | ---------------------------------------------------------------- |
-| Unit        | `test/unit/`        | No     | Mocks git via dependency injection                               |
-| Integration | `test/integration/` | Yes    | Runs against real filesystem/git; tested across Node 14/16/18/20 |
-| E2E         | `test/e2e/`         | Yes    | Requires built `dist/`; tests the full hook flow                 |
-| Smoke       | `test/smoke/`       | No     | Tests the published npm package post-release                     |
+| Suite       | Location            | Docker | Notes                                                         |
+| ----------- | ------------------- | ------ | ------------------------------------------------------------- |
+| Unit        | `test/unit/`        | No     | Mocks git via dependency injection                            |
+| Integration | `test/integration/` | Yes    | Runs against real filesystem/git; tested across Node 20/22/24 |
+| E2E         | `test/e2e/`         | Yes    | Requires built `dist/`; tests the full hook flow              |
+| Smoke       | `test/smoke/`       | No     | Tests the published npm package post-release                  |
 
 `test/containerized-test.ts` is a utility that spins up Docker containers for integration/e2e suites. Each suite runs sequentially across all supported Node versions.
 

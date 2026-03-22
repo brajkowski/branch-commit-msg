@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           cache: "yarn"
       - run: yarn install --frozen-lockfile
       - run: yarn test:coverage
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v5
         with:
           files: ./coverage/unit/clover.xml,./coverage/integration/clover.xml,./coverage/e2e/clover.xml
       - env:

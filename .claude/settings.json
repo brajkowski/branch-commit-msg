@@ -1,0 +1,38 @@
+{
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true
+  },
+  "permissions": {
+    "allow": [
+      "Bash(yarn install)",
+      "Bash(yarn build)",
+      "Bash(yarn bundle:hook)",
+      "Bash(yarn bundle:index)",
+      "Bash(yarn check:lint*)",
+      "Bash(yarn check:format*)",
+      "Bash(yarn test*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "yarn check:lint --fix; yarn check:format --write"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"$CLAUDE_TOOL_INPUT\" | grep -q '\"file_path\".*src/' && yarn test:unit --silent 2>&1 | tail -5 || exit 0"
+          }
+        ]
+      }
+    ]
+  }
+}

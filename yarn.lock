@@ -3069,7 +3069,7 @@ __metadata:
     husky: ^9.1.7
     jest: ^30.2.0
     lint-staged: ^16.4.0
-    prettier: 3.8.2
+    prettier: 3.9.5
     rimraf: ^6.1.3
     semantic-release: ^25.0.3
     ts-jest: ^29.4.9
@@ -7469,12 +7469,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.8.2":
-  version: 3.8.2
-  resolution: "prettier@npm:3.8.2"
+"prettier@npm:3.9.5":
+  version: 3.9.5
+  resolution: "prettier@npm:3.9.5"
   bin:
     prettier: bin/prettier.cjs
-  checksum: f415107b70d175983f8141cd78a99d38fbd4241c99b293ed182d76a96081d00db8918b1c76b32e597101d8ed8d3ab37389057b9ff1ba330a6a0e561c873cd22f
+  checksum: a47508022818548392d02d8d7074c0af4440e1bcb288f912a29bcf82a863925b67a34e5ded63b0c09ede234811d1dc48f49d201633dd740d5e8ee1dd304d16e3
   languageName: node
   linkType: hard
 

@@ -51,7 +51,7 @@
     "@types/node": "^24.0.0",
     "@types/yargs": "^17.0.35",
     "@typescript-eslint/eslint-plugin": "^8.64.0",
-    "@typescript-eslint/parser": "^8.58.1",
+    "@typescript-eslint/parser": "^8.64.0",
     "esbuild": "^0.28.1",
     "escape-string-regexp": "^5.0.0",
     "eslint": "^10.2.0",

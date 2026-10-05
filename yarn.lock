@@ -3357,7 +3357,7 @@ __metadata:
     ts-jest: ^29.4.13
     ts-node: ^10.9.2
     typescript: ^5.9.3
-    yargs: ^18.1.0
+    yargs: ^18.2.0
   bin:
     branch-commit-msg: dist/index.mjs
     branch-commit-msg-hook: dist/commit-msg
@@ -9491,9 +9491,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:^18.1.0":
-  version: 18.1.0
-  resolution: "yargs@npm:18.1.0"
+"yargs@npm:^18.2.0":
+  version: 18.2.0
+  resolution: "yargs@npm:18.2.0"
   dependencies:
     cliui: ^9.0.1
     escalade: ^3.1.1
@@ -9501,7 +9501,7 @@ __metadata:
     string-width: ^8.2.1
     y18n: ^5.0.5
     yargs-parser: ^22.0.0
-  checksum: bd56c39d72f5490d4605d75b482b4edc6c67bd673cd687871ba0b4343fb8a85a5675078f28824dbc7eebf31427b643b98151854cacea714431c82aaa6a6ca8e9
+  checksum: b3892a311d3c2a5db03748287c0c3186b75e04530ab37afd2f1810edf6d913235914f81db322b96bce1d6f7fec008ca673baa86d711fe34be89f407963930cf5
   languageName: node
   linkType: hard
 
